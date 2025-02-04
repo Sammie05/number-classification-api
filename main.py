@@ -47,7 +47,7 @@ def is_armstrong(n: int) -> bool:
     return n == sum(int(d)**length for d in digits)
 
 def get_digit_sum(n: int) -> int:
-    return sum(int(d) for d in str(abs(n)))
+    return sum(int(d) for d in str(n) if d.isdigit())
 
 def get_parity(n: int) -> str:
     return "even" if n % 2 == 0 else "odd"
@@ -91,6 +91,10 @@ async def classify_number(
         "digit_sum": get_digit_sum(num),
         "fun_fact": fun_fact
     }
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Number Classification API! Use /api/classify-number?number=123 to classify a number."}
 
 if __name__ == "__main__":
     import uvicorn
