@@ -1,9 +1,9 @@
 import math
 import requests
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Union
-
+from fastapi.responses import JSONResponse
 app = FastAPI()
 
 # Enable CORS
@@ -56,7 +56,7 @@ async def classify_number(
 ):
     # Validate input
     if not number:
-        raise HTTPException(status_code=400, detail={"number": None, "error": True})
+        return JSONResponse(status_code=400, content={"number": None, "error": True})
     
     try:
         num = int(number)
