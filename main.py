@@ -14,8 +14,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-NUMBERS_API_URL = "http://numbersapi.com/{number}/math"
-
 def is_prime(n: int) -> bool:
     if n <= 1:
         return False
@@ -78,7 +76,7 @@ async def classify_number(
     
     # Get fun fact
     try:
-        response = requests.get(NUMBERS_API_URL.format(number=num), timeout=2)
+        response = requests.get(f"http://numbersapi.com/{num}/math".format(number=num), timeout=2)
         fun_fact = response.text if response.status_code == 200 else f"{num} is a number."
     except requests.exceptions.RequestException:
         fun_fact = f"{num} is a number."
